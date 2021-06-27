@@ -3,6 +3,24 @@ entries:
   http-echo:
   - apiVersion: v2
     appVersion: 0.2.3
+    created: "2021-06-27T19:08:54.12600921Z"
+    description: A Helm chart the Hashicorp HTTP Echo application
+    digest: 1104420cd51b30f57620bac9452d1da8649141bcadc44dd7445c3b36781240cd
+    home: https://github.com/haraldkoch/helm-charts/tree/main/charts/echo
+    icon: https://secure.gravatar.com/avatar/f7304a610df968cef5badc9e9dcd40e0.jpg?s=80&r=g&d=mm
+    maintainers:
+    - email: harald.koch@gmail.com
+      name: Harald Koch
+    name: http-echo
+    sources:
+    - https://hub.docker.com/r/hashicorp/http-echo/
+    - https://github.com/hashicorp/http-echo
+    type: application
+    urls:
+    - https://github.com/haraldkoch/helm-charts/releases/download/http-echo-0.1.5/http-echo-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
+    appVersion: 0.2.3
     created: "2021-06-27T18:57:37.481779122Z"
     description: A Helm chart the Hashicorp HTTP Echo application
     digest: dfd3698790e672098e8f3d741f8ae515261dc17933ce804c80a30d6f55509e98
@@ -45,4 +63,4 @@ entries:
     urls:
     - https://github.com/haraldkoch/helm-charts/releases/download/http-echo-0.1.1/http-echo-0.1.1.tgz
     version: 0.1.1
-generated: "2021-06-27T18:57:37.481825323Z"
+generated: "2021-06-27T19:08:54.12605371Z"
