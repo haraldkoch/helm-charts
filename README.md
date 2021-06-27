@@ -1,5 +1,7 @@
 # My Kubernetes Helm Charts
 
+[![Release Charts](https://github.com/haraldkoch/helm-charts/actions/workflows/chart-release.yml/badge.svg)](https://github.com/haraldkoch/helm-charts/actions/workflows/chart-release.yml)
+
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.
@@ -12,3 +14,7 @@ helm repo add haraldkoch https://haraldkoch.github.io/helm-charts
 ```
 
 You can then run `helm search repo haraldkoch` to see the charts.
+
+## Helm Charts Build Status
+
+[![Release Charts](https://github.com/haraldkoch/helm-charts/actions/workflows/chart-release.yml/badge.svg)](https://github.com/haraldkoch/helm-charts/actions/workflows/chart-release.yml)
