@@ -2,7 +2,7 @@ remote: origin
 target-branch: main
 helm-extra-args: --timeout 600s
 chart-dirs:
-- charts/stable
+- charts
 excluded-charts:
 chart-repos:
 - haraldkoch=https://haraldkoch.github.io/helm-charts
