@@ -14,5 +14,5 @@ sources:
 - https://github.com/hashicorp/http-echo
 
 maintainers:
-- name: Harald Koch
+- name: haraldkoch
   email: harald.koch@gmail.com
