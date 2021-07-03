@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "prometheus-dnssec-exporter.fullname" . }}
+  labels:
+    {{- include "prometheus-dnssec-exporter.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "prometheus-dnssec-exporter.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "prometheus-dnssec-exporter.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          {{- range $key, $value := .Values.extraEnv }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+          {{- end }}
+          args:
+{{- if .Values.config }}
+   {{- if .Values.configPath }}
+            - "--config={{ .Values.configPath }}"
+   {{- else }}
+            - "--config=/config/dnssec-checks"
+   {{- end }}
+{{- else }}
+            - "--config=/etc/dnssec-checks"
+{{- end }}
+            {{- with .Values.resolvers }}
+            - "--resolvers={{ join "," . }}"
+            {{- end }}
+            {{- if .Values.extraArgs }}
+{{ toYaml .Values.extraArgs | indent 12 }}
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: 9204
+              protocol: TCP
+          volumeMounts:
+          - mountPath: /config
+            name: config
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /-/healthy
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      restartPolicy: {{ .Values.restartPolicy }}
+      volumes:
+        - name: config
+{{- if .Values.secretConfig }}
+          secret:
+            secretName: {{ template "prometheus-dnssec-exporter.fullname" . }}
+{{- else if .Values.configExistingSecretName }}
+          secret:
+            secretName: {{ .Values.configExistingSecretName }}
+{{- else }}
+          configMap:
+            name: {{ template "prometheus-dnssec-exporter.fullname" . }}
+{{- end }}

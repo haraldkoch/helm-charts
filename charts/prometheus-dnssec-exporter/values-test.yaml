@@ -1,0 +1,22 @@
+ingress:
+  enabled: true
+  hosts:
+    - host: dnssec.kochhaus.net
+      paths:
+        - path: /
+          pathType: Prefix
+
+config:
+  records:
+    - zone: "kochhaus.net"
+      record: "@"
+      type: "SOA"
+    - zone: "laneth.org"
+      record: "@"
+      type: "NS"
+
+resolvers:
+  - "8.8.8.8:53"
+  - "199.85.99.250:53"
+  - "199.85.99.251:53"
+  - "199.85.99.252:53"
