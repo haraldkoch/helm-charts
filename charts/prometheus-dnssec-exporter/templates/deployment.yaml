@@ -39,11 +39,9 @@ spec:
           {{- end }}
           args:
 {{- if .Values.config }}
-   {{- if .Values.configPath }}
-            - "--config={{ .Values.configPath }}"
-   {{- else }}
             - "--config=/config/dnssec-checks"
-   {{- end }}
+{{- else if .Values.configPath }}
+            - "--config={{ .Values.configPath }}"
 {{- else }}
             - "--config=/etc/dnssec-checks"
 {{- end }}
