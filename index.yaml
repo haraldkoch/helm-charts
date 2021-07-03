@@ -3,6 +3,24 @@ entries:
   http-echo:
   - apiVersion: v2
     appVersion: 0.2.3
+    created: "2021-07-03T17:59:50.491342002Z"
+    description: A Helm chart the Hashicorp HTTP Echo application
+    digest: c90f80db25492e3a52eb583833c421139fe4833c9cf3f4f3939e4081bdc79ae0
+    home: https://github.com/haraldkoch/helm-charts/tree/main/charts/echo
+    icon: https://secure.gravatar.com/avatar/f7304a610df968cef5badc9e9dcd40e0.jpg?s=80&r=g&d=mm
+    maintainers:
+    - email: harald.koch@gmail.com
+      name: haraldkoch
+    name: http-echo
+    sources:
+    - https://hub.docker.com/r/hashicorp/http-echo/
+    - https://github.com/hashicorp/http-echo
+    type: application
+    urls:
+    - https://github.com/haraldkoch/helm-charts/releases/download/http-echo-0.1.7/http-echo-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v2
+    appVersion: 0.2.3
     created: "2021-06-27T19:45:04.494932654Z"
     description: A Helm chart the Hashicorp HTTP Echo application
     digest: 5d3e3bf03a50cdd9a1f14c22c2b7ad2f17b4cd2f70fb239781f121119c60ffbb
@@ -81,4 +99,21 @@ entries:
     urls:
     - https://github.com/haraldkoch/helm-charts/releases/download/http-echo-0.1.1/http-echo-0.1.1.tgz
     version: 0.1.1
-generated: "2021-06-27T19:45:04.494969555Z"
+  prometheus-dnssec-exporter:
+  - apiVersion: v2
+    appVersion: 0.2.0
+    created: "2021-07-03T17:59:50.713995433Z"
+    description: The Prometheus DNSSEC exporter
+    digest: de075497dedaf7c40e88cd4d5223ccdfefb3f44cc4497fbffb9cca59862e6fe3
+    home: https://github.com/haraldkoch/helm-charts/tree/main/charts/echo
+    icon: https://avatars.githubusercontent.com/u/3380462?s=200&v=4
+    name: prometheus-dnssec-exporter
+    sources:
+    - https://hub.docker.com/r/haraldkoch/prometheus-dnssec-exporter/
+    - https://github.com/haraldkoch/prometheus-dnssec-exporter
+    - https://github.com/chrj/prometheus-dnssec-exporter
+    type: application
+    urls:
+    - https://github.com/haraldkoch/helm-charts/releases/download/prometheus-dnssec-exporter-0.1.0/prometheus-dnssec-exporter-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-07-03T17:59:50.714028533Z"
