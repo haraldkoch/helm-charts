@@ -102,6 +102,22 @@ entries:
   prometheus-dnssec-exporter:
   - apiVersion: v2
     appVersion: 0.2.0
+    created: "2021-07-03T18:50:09.747657184Z"
+    description: The Prometheus DNSSEC exporter
+    digest: c411be654152e13374e891d59734d365807314d05784a60297de7bd4e2563590
+    home: https://github.com/haraldkoch/helm-charts/tree/main/charts/echo
+    icon: https://avatars.githubusercontent.com/u/3380462?s=200&v=4
+    name: prometheus-dnssec-exporter
+    sources:
+    - https://hub.docker.com/r/haraldkoch/prometheus-dnssec-exporter/
+    - https://github.com/haraldkoch/prometheus-dnssec-exporter
+    - https://github.com/chrj/prometheus-dnssec-exporter
+    type: application
+    urls:
+    - https://github.com/haraldkoch/helm-charts/releases/download/prometheus-dnssec-exporter-0.1.1/prometheus-dnssec-exporter-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.2.0
     created: "2021-07-03T17:59:50.713995433Z"
     description: The Prometheus DNSSEC exporter
     digest: de075497dedaf7c40e88cd4d5223ccdfefb3f44cc4497fbffb9cca59862e6fe3
@@ -116,4 +132,4 @@ entries:
     urls:
     - https://github.com/haraldkoch/helm-charts/releases/download/prometheus-dnssec-exporter-0.1.0/prometheus-dnssec-exporter-0.1.0.tgz
     version: 0.1.0
-generated: "2021-07-03T17:59:50.714028533Z"
+generated: "2021-07-03T18:50:09.748091315Z"
