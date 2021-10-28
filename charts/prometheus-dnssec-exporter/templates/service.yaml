@@ -29,7 +29,7 @@ spec:
     {{ toYaml $values.loadBalancerSourceRanges | nindent 4 }}
   {{- end -}}
   {{- else }}
-  type: {{ svcType }}
+  type: {{ $svcType }}
   {{- end }}
   ports:
     - port: {{ $values.port }}
