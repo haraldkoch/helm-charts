@@ -1,13 +1,38 @@
+{{- $values := .Values.service -}}
+{{- $svcType := $values.type | default "" -}}
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "prometheus-dnssec-exporter.fullname" . }}
   labels:
     {{- include "prometheus-dnssec-exporter.labels" . | nindent 4 }}
+  annotations:
+  {{- with $values.annotations }}
+    {{ toYaml . | nindent 4 }}
+  {{- end }}
 spec:
-  type: {{ .Values.service.type }}
+  {{- if (or (eq $svcType "ClusterIP") (empty $svcType)) }}
+  type: ClusterIP
+  {{- if $valuesclusterIP }}
+  clusterIP: {{ $values.clusterIP }}
+  {{end}}
+  {{- else if eq $svcType "LoadBalancer" }}
+  type: LoadBalancer
+  {{- if $values.loadBalancerIP }}
+  loadBalancerIP: {{ $values.loadBalancerIP }}
+  {{- end }}
+  {{- if $values.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ $valuesexternalTrafficPolicy }}
+  {{- end }}
+  {{- if $values.loadBalancerSourceRanges }}
+  loadBalancerSourceRanges:
+    {{ toYaml $values.loadBalancerSourceRanges | nindent 4 }}
+  {{- end -}}
+  {{- else }}
+  type: {{ svcType }}
+  {{- end }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ $values.port }}
       targetPort: 9204
       protocol: TCP
       name: http
