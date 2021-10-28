@@ -13,7 +13,7 @@ metadata:
 spec:
   {{- if (or (eq $svcType "ClusterIP") (empty $svcType)) }}
   type: ClusterIP
-  {{- if $valuesclusterIP }}
+  {{- if $values.clusterIP }}
   clusterIP: {{ $values.clusterIP }}
   {{end}}
   {{- else if eq $svcType "LoadBalancer" }}
@@ -22,7 +22,7 @@ spec:
   loadBalancerIP: {{ $values.loadBalancerIP }}
   {{- end }}
   {{- if $values.externalTrafficPolicy }}
-  externalTrafficPolicy: {{ $valuesexternalTrafficPolicy }}
+  externalTrafficPolicy: {{ $values.externalTrafficPolicy }}
   {{- end }}
   {{- if $values.loadBalancerSourceRanges }}
   loadBalancerSourceRanges:
