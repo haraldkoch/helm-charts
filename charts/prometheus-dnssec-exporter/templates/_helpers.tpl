@@ -43,6 +43,18 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
+podAnnotations
+*/}}
+{{- define "prometheus-dnssec-exporter.podAnnotations" -}}
+{{- if .Values.podAnnotations }}
+{{ toYaml .Values.podAnnotations }}
+{{- end }}
+{{- if .Values.metrics.podAnnotations }}
+{{ toYaml .Values.metrics.podAnnotations }}
+{{- end }}
+{{- end -}}
+
+{{/*
 Selector labels
 */}}
 {{- define "prometheus-dnssec-exporter.selectorLabels" -}}

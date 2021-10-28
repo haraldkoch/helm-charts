@@ -13,10 +13,10 @@ spec:
       {{- include "prometheus-dnssec-exporter.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- if or .Values.podAnnotations .Values.metrics.enabled }}
+        {{- include "prometheus-dnssec-exporter.podAnnotations" . | trim | nindent 8 }}
+        {{- end }}
       labels:
         {{- include "prometheus-dnssec-exporter.selectorLabels" . | nindent 8 }}
     spec:

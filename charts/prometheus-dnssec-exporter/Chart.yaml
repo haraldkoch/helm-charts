@@ -1,6 +1,6 @@
 apiVersion: v2
 name: prometheus-dnssec-exporter
-version: 0.2.2
+version: 0.3.0
 appVersion: "0.2.0"
 
 description: The Prometheus DNSSEC exporter
