@@ -22,5 +22,5 @@ spec:
       - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      {{- include "prometheus-dnssec-exporter.selectorLabels" . | nindent 4 }}
+      {{- include "prometheus-dnssec-exporter.selectorLabels" . | nindent 6 }}
 {{- end }}
