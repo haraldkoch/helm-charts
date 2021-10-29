@@ -16,9 +16,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Lint and Test
-        uses: ./.github/actions/lint-test-action
-
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
@@ -26,6 +23,8 @@ jobs:
 
       - name: Install Helm
         uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.2.1
