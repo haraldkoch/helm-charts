@@ -94,11 +94,11 @@ configExistingSecretName: ""
 # Store the configuration as a `Secret` instead of a `ConfigMap`, useful in case it contains sensitive data
 secretConfig: false
 
-# config:
-#   records:
-#     - zone: "ietf.org"
-#       record: "@"
-#       type: "SOA"
+config:
+  records:
+    - zone: "ietf.org"
+      record: "@"
+      type: "SOA"
 #     - zone: "verisigninc.com"
 #       record: "@"
 #       type: "SOA"
