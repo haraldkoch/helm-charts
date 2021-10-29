@@ -19,4 +19,4 @@ jobs:
           fetch-depth: 0
 
       - name: Lint and Test
-        uses: actions/lint-test-action
+        uses: ./.github/actions/lint-test-action
