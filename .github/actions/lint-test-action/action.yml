@@ -21,16 +21,13 @@ runs:
         if [[ -n "$changed" ]]; then
           echo "::set-output name=changed::true"
         fi
-      shell: bash
 
     - name: Run chart-testing (lint)
       run: ct lint --all --config .github/ct-lint.yaml
-      shell: bash
 
     - name: Create kind cluster
       uses: helm/kind-action@v1.2.0
-#      if: steps.list-changed.outputs.changed == 'true'
+      if: steps.list-changed.outputs.changed == 'true'
 
     - name: Run chart-testing (install)
       run: ct install --config .github/ct-lint.yaml
-      shell: bash
