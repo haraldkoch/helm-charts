@@ -1,4 +1,4 @@
---- 
+---
 prometheusRule:
   enabled: true
   additionalLabels: {}
