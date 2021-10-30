@@ -117,7 +117,7 @@ extraArgs: []
 metrics:
   ## @param metrics.enabled Enable prometheus to access external-dns metrics endpoint
   ##
-  enabled: false
+  enabled: true
   ## @param metrics.podAnnotations Annotations for enabling prometheus to access the metrics endpoint
   ##
   podAnnotations: {}
@@ -126,7 +126,7 @@ metrics:
   serviceMonitor:
     ## @param metrics.serviceMonitor.enabled Create ServiceMonitor object
     ##
-    enabled: false
+    enabled: true
     ## @param metrics.serviceMonitor.namespace Namespace in which Prometheus is running
     ##
     namespace: ""
@@ -147,32 +147,32 @@ metrics:
     selector: {}
 
 prometheusRule:
-  enabled: false
+  enabled: true
   additionalLabels: {}
   namespace: ""
-  rules: []
+  rules:
     ## These are just examples rules, please adapt them to your needs.
     ## Make sure to constraint the rules to the current prometheus-dnssec-exporter service.
-    # - alert: DNSSECSignatureExpiration
-    #   expr: dnssec_zone_record_days_left{service="{{ template "prometheus-dnssec-exporter.fullname" . }}"} < 10
-    #   for: 1m
-    #   labels:
-    #     severity: warning
-    #   annotations:
-    #     description: |
-    #        The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }}
-    #        type {{ "{{ $labels.type }}" }} expires in {{ "{{ $value }}" }} day(s)
-    #     summary: |
-    #       The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }} is expiring
-    # - alert: DNSSECSignatureInvalid
-    #   expr: dnssec_zone_record_resolves{service="{{ template "prometheus-dnssec-exporter.fullname" . }}"} == 0
-    #   for: 1m
-    #   labels:
-    #     severity: critical
-    #   annotations:
-    #     description: |
-    #       The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }}
-    #       type {{ "{{ $labels.type }}" }} on resolver {{ "{{ $labels.resolver }}" }} is invalid
-    #     sumary: |
-    #       The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }}
-    #       on resolver {{ "{{ $labels.resolver }}" }} is invalid
+    - alert: DNSSECSignatureExpiration
+      expr: dnssec_zone_record_days_left{service="{{ template "prometheus-dnssec-exporter.fullname" . }}"} < 10
+      for: 1m
+      labels:
+        severity: warning
+      annotations:
+        description: |
+           The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }}
+           type {{ "{{ $labels.type }}" }} expires in {{ "{{ $value }}" }} day(s)
+        summary: |
+          The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }} is expiring
+    - alert: DNSSECSignatureInvalid
+      expr: dnssec_zone_record_resolves{service="{{ template "prometheus-dnssec-exporter.fullname" . }}"} == 0
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        description: |
+          The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }}
+          type {{ "{{ $labels.type }}" }} on resolver {{ "{{ $labels.resolver }}" }} is invalid
+        sumary: |
+          The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }}
+          on resolver {{ "{{ $labels.resolver }}" }} is invalid
