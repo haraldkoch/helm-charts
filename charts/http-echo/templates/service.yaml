@@ -1,13 +1,38 @@
+{{- $values := .Values.service -}}
+{{- $svcType := $values.type | default "" -}}
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "echo.fullname" . }}
   labels:
     {{- include "echo.labels" . | nindent 4 }}
+  annotations:
+  {{- with $values.annotations }}
+    {{ toYaml . | nindent 4 }}
+  {{- end }}
 spec:
-  type: {{ .Values.service.type }}
+  {{- if (or (eq $svcType "ClusterIP") (empty $svcType)) }}
+  type: ClusterIP
+  {{- if $values.clusterIP }}
+  clusterIP: {{ $values.clusterIP }}
+  {{end}}
+  {{- else if eq $svcType "LoadBalancer" }}
+  type: LoadBalancer
+  {{- if $values.loadBalancerIP }}
+  loadBalancerIP: {{ $values.loadBalancerIP }}
+  {{- end }}
+  {{- if $values.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ $values.externalTrafficPolicy }}
+  {{- end }}
+  {{- if $values.loadBalancerSourceRanges }}
+  loadBalancerSourceRanges:
+    {{ toYaml $values.loadBalancerSourceRanges | nindent 4 }}
+  {{- end -}}
+  {{- else }}
+  type: {{ $svcType }}
+  {{- end }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ $values.port }}
       targetPort: 5678
       protocol: TCP
       name: http
