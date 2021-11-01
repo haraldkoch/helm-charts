@@ -1,6 +1,6 @@
 apiVersion: v2
 name: http-echo
-version: 0.2.0
+version: 0.2.1
 appVersion: "0.2.3"
 
 description: A Helm chart the Hashicorp HTTP Echo application
@@ -10,9 +10,9 @@ home: https://github.com/haraldkoch/helm-charts/tree/main/charts/echo
 icon: "https://secure.gravatar.com/avatar/f7304a610df968cef5badc9e9dcd40e0.jpg?s=80&r=g&d=mm"
 
 sources:
-- https://hub.docker.com/r/hashicorp/http-echo/
-- https://github.com/hashicorp/http-echo
+  - https://hub.docker.com/r/hashicorp/http-echo/
+  - https://github.com/hashicorp/http-echo
 
 maintainers:
-- name: haraldkoch
-  email: harald.koch@gmail.com
+  - name: haraldkoch
+    email: harald.koch@gmail.com
