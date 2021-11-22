@@ -13,8 +13,9 @@ extraEnv: {}
 replicaCount: 1
 
 image:
-  repository: haraldkoch/prometheus-dnssec-exporter
+  repository: ghcr.io/haraldkoch/prometheus-dnssec-exporter
   pullPolicy: IfNotPresent
+  tag: 0.2.1
 
 imagePullSecrets: []
 nameOverride: ""
