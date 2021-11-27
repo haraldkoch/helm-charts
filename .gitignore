@@ -10,3 +10,7 @@ kubeconfig
 # gitguardian
 .envrc
 .cache_ggshield
+
+# Helm resources
+charts/**/Chart.lock
+charts/**/charts
