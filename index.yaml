@@ -3,6 +3,31 @@ entries:
   http-echo:
   - apiVersion: v2
     appVersion: 0.2.3
+    created: "2021-11-28T21:10:23.498425538Z"
+    dependencies:
+    - name: common
+      repository: https://library-charts.k8s-at-home.com
+      version: 4.2.0
+    description: A Helm chart for the Hashicorp HTTP Echo application
+    digest: df68b9e9db49b4ac6bc2bb7d4cb641a69fd02a1dbaabae7d9b5b44c5e47f9f91
+    home: https://github.com/haraldkoch/helm-charts/tree/main/charts/echo
+    icon: https://secure.gravatar.com/avatar/f7304a610df968cef5badc9e9dcd40e0.jpg?s=80&r=g&d=mm
+    keywords:
+    - echo
+    - http-echo
+    maintainers:
+    - email: harald.koch@gmail.com
+      name: haraldkoch
+    name: http-echo
+    sources:
+    - https://hub.docker.com/r/hashicorp/http-echo/
+    - https://github.com/hashicorp/http-echo
+    type: application
+    urls:
+    - https://github.com/haraldkoch/helm-charts/releases/download/http-echo-0.3.0/http-echo-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: 0.2.3
     created: "2021-11-01T00:36:02.523222894Z"
     description: A Helm chart the Hashicorp HTTP Echo application
     digest: cf4faf51a634b1da8ed7dc3cf6ed75ab2b0cfa805b4d9989622c9615d2c848c0
@@ -340,4 +365,4 @@ entries:
     urls:
     - https://github.com/haraldkoch/helm-charts/releases/download/prometheus-dnssec-exporter-0.1.0/prometheus-dnssec-exporter-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-22T14:49:02.890693521Z"
+generated: "2021-11-28T21:10:23.498499338Z"
