@@ -6,7 +6,7 @@
 {{- define "http-echo.hardcodedValues" -}}
 {{- with .Values.text }}
 args:
-  - -text "{{ . }}"
+  - -text="{{ . }}"
 {{ end }}
 {{- end -}}
 {{- $_ := mergeOverwrite .Values (include "http-echo.hardcodedValues" . | fromYaml) -}}
