@@ -1,0 +1,27 @@
+apiVersion: v2
+name: weather-exporter
+version: 0.1.0
+appVersion: "0.1.0"
+
+description: A Prometheus weather exporter
+type: application
+keywords:
+- weather-exporter
+- darksky
+- weather
+
+home: https://github.com/haraldkoch/helm-charts/tree/main/charts/weather-exporter
+icon: "https://avatars.githubusercontent.com/u/61287648?s=200&v=4"
+
+sources:
+  - https://github.com/haraldkoch/weather_exporter
+  - https://github.com/celliott/weather_exporter
+
+maintainers:
+  - name: haraldkoch
+    email: harald.koch@gmail.com
+
+dependencies:
+- name: common
+  repository: https://library-charts.k8s-at-home.com
+  version: 4.2.0

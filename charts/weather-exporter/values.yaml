@@ -1,0 +1,81 @@
+#
+# IMPORTANT NOTE
+#
+# This chart inherits from our common library chart. You can check the default values/options here:
+# https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+#
+
+image:
+  # -- image repository
+  repository: ghcr.io/haraldkoch/weather_exporter
+  # -- image tag
+  tag: 0.1.0
+  # -- image pull policy
+  pullPolicy: IfNotPresent
+
+env:
+  # -- Set the container timezone
+  TZ: UTC
+
+  # How often the application calls Dark Sky to refresh its data. This is
+  # different from the Prometheus scrape interval, which needs to be less than
+  # 120 seconds to avoid the staleness algorithms. The free Dark Sky API
+  # allows 1000 calls per day, so you could theoretically set this to 87
+  # seconds and stay under. But really, weather doesn't change that often.
+  #
+  # -- how often the application scrapes the Dark Sky API.
+  SCRAPE_INTERVAL: "600"
+
+  # -- A list of cities to scrape. The application uses "Nominatim" by OpenStreetMap.
+  CITIES: "new york"
+
+  # -- units to use. One of "auto", "ca", "si", "uk2", or "us" (the default).
+  UNITS: "us"
+
+  # Note that Dark Sky is no longer accepting sign ups. See the
+  # openweathermap_exporter if you do not have a Dark Sky API key.
+  # -- Dark Sky API key.
+  # DARK_SKY_API_KEY: "api-key-here"
+
+# -- Configures service settings for the chart.
+# @default -- See values.yaml
+service:
+  main:
+    ports:
+      http:
+        enabled: false
+      metrics:
+        enabled: true
+        protocol: TCP
+        port: 9265
+
+ingress:
+  # -- Enable and configure ingress settings for the chart under this key.
+  # @default -- See values.yaml
+  main:
+    enabled: false
+
+metrics:
+  # -- Enable and configure a prometheus serviceMonitor for the chart under this key.
+  # @default -- See values.yaml
+  enabled: false
+  serviceMonitor:
+    interval: 1m
+    scrapeTimeout: 30s
+    labels: {}
+  # -- Enable and configure Prometheus Rules for the chart under this key.
+  # @default -- See values.yaml
+  prometheusRule:
+    enabled: false
+    labels: {}
+    # -- Configure additionial rules for the chart under this key.
+    # @default -- See prometheusrules.yaml
+    rules: []
+      # - alert: HighUvIndex
+      #   annotations:
+      #     description: UV index of {{ "{{ $value }}" }} is high.
+      #     summary: High UV index.
+      #   expr: |
+      #     weather_uv_index > 6
+      #   labels:
+      #     severity: warning
