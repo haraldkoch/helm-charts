@@ -1,0 +1,72 @@
+#
+# IMPORTANT NOTE
+#
+# This chart inherits from our common library chart. You can check the default values/options here:
+# https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+#
+
+image:
+  # -- image repository
+  repository: ghcr.io/haraldkoch/openweathermap_exporter
+  # -- image tag - defaults to chart appVersion
+  # tag: 0.1.0
+  # -- image pull policy
+  pullPolicy: IfNotPresent
+
+env:
+  # -- Set the container timezone
+  TZ: UTC
+
+  # -- Do not change this without also changing the service definition.
+  SERVER_PORT: "2112"
+
+  # -- The location to scrape. Can be a city name, a city ID, lat/lon, or zip
+  # code. See the API docs here https://openweathermap.org/current#one for
+  # more information.
+  OWM_LOCATION: "New York,NY,US"
+
+  # -- OpenWeatherMap API key. Sign up here: https://openweathermap.org/api
+  OWM_API_KEY: "api-key-here"
+
+# -- Configures service settings for the chart.
+# @default -- See values.yaml
+service:
+  main:
+    ports:
+      http:
+        enabled: false
+      metrics:
+        enabled: true
+        protocol: TCP
+        port: 2112
+
+ingress:
+  # -- Enable and configure ingress settings for the chart under this key.
+  # @default -- See values.yaml
+  main:
+    enabled: false
+
+metrics:
+  # -- Enable and configure a prometheus serviceMonitor for the chart under this key.
+  # @default -- See values.yaml
+  enabled: false
+  serviceMonitor:
+    interval: 1m
+    scrapeTimeout: 30s
+    labels: {}
+  # -- Enable and configure Prometheus Rules for the chart under this key.
+  # @default -- See values.yaml
+  prometheusRule:
+    enabled: false
+    labels: {}
+    # -- Configure additionial rules for the chart under this key.
+    # @default -- See prometheusrules.yaml
+    rules: []
+      # - alert: HeatWarning
+      #   annotations:
+      #     description: Apparent Temperature {{ $value }} is above 30C.
+      #     summary: Heat Warning.
+      #   expr: |
+      #     openweathermap_feelslike_temperature_celsius > 30
+      #   labels:
+      #     severity: warning
