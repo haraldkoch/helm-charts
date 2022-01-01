@@ -422,4 +422,31 @@ entries:
     urls:
     - https://github.com/haraldkoch/helm-charts/releases/download/prometheus-dnssec-exporter-0.1.0/prometheus-dnssec-exporter-0.1.0.tgz
     version: 0.1.0
-generated: "2021-12-31T03:02:20.151813966Z"
+  weather-exporter:
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2022-01-01T21:23:09.8665048Z"
+    dependencies:
+    - name: common
+      repository: https://library-charts.k8s-at-home.com
+      version: 4.2.0
+    description: A Prometheus weather exporter
+    digest: fbc7fc4e0abf04ecb926dc7b5e80b9fa5ebc6c1e5dfcdca9de681a273bb8b336
+    home: https://github.com/haraldkoch/helm-charts/tree/main/charts/weather-exporter
+    icon: https://avatars.githubusercontent.com/u/61287648?s=200&v=4
+    keywords:
+    - weather-exporter
+    - darksky
+    - weather
+    maintainers:
+    - email: harald.koch@gmail.com
+      name: haraldkoch
+    name: weather-exporter
+    sources:
+    - https://github.com/haraldkoch/weather_exporter
+    - https://github.com/celliott/weather_exporter
+    type: application
+    urls:
+    - https://github.com/haraldkoch/helm-charts/releases/download/weather-exporter-0.1.1/weather-exporter-0.1.1.tgz
+    version: 0.1.1
+generated: "2022-01-01T21:23:09.866735899Z"
