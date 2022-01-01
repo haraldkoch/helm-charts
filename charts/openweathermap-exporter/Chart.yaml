@@ -1,0 +1,28 @@
+apiVersion: v2
+name: openweathermap-exporter
+version: 0.1.0
+appVersion: "0.1.0"
+
+description: A Prometheus openweathermap exporter
+type: application
+keywords:
+- openweathermap-exporter
+- openweathermap
+- weather
+
+home: https://github.com/haraldkoch/helm-charts/tree/main/charts/openweathermap-exporter
+icon: "https://avatars.githubusercontent.com/u/61287648?s=200&v=4"
+
+sources:
+  - https://github.com/haraldkoch/openweathermap_exporter
+  - https://github.com/remmelt/openweathermap_exporter
+  - https://github.com/briandowns/openweathermap
+
+maintainers:
+  - name: haraldkoch
+    email: harald.koch@gmail.com
+
+dependencies:
+- name: common
+  repository: https://library-charts.k8s-at-home.com
+  version: 4.2.0
