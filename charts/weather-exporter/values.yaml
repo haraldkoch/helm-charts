@@ -8,8 +8,8 @@
 image:
   # -- image repository
   repository: ghcr.io/haraldkoch/weather_exporter
-  # -- image tag
-  tag: 0.1.1
+  # -- image tag - defaults to chart appVersion
+  # tag: 0.1.1
   # -- image pull policy
   pullPolicy: IfNotPresent
 

@@ -11,7 +11,7 @@ image:
   repository: hashicorp/http-echo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.2.3"
+  # tag: "0.2.3"
 
 # text to send in reply to an HTTP GET
 text: "echo test"
