@@ -1,7 +1,7 @@
 {{- include "common.values.setup" . }}
 
 {{/* Append the hardcoded settings */}}
-{{- define "prometheus-dnssec-exporter.harcodedValues" -}}
+{{- define "prometheus-dnssec-exporter.hardcodedValues" -}}
   {{- if .Values.configmap.config.enabled }}
   {{/* merge prometheus-dnssec-exporter specific annotations with podAnnotations*/}}
   podAnnotations:
@@ -25,7 +25,7 @@
     - "--resolvers={{ join "," . }}"
     {{- end }}
 {{- end -}}
-{{- $_ := mergeOverwrite .Values (include "prometheus-dnssec-exporter.harcodedValues" . | fromYaml) -}}
+{{- $_ := mergeOverwrite .Values (include "prometheus-dnssec-exporter.hardcodedValues" . | fromYaml) -}}
 
 {{/* Render the templates */}}
 {{ include "common.all" . }}
