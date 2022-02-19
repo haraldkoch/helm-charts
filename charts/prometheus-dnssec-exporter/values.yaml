@@ -1,180 +1,96 @@
-# Default values for prometheus-dns-exporter.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-restartPolicy: Always
-
-podDisruptionBudget: {}
-  # maxUnavailable: 0
-
-extraEnv: {}
-  # TZ: "America/New York"
-
-replicaCount: 1
+#
+# IMPORTANT NOTE
+#
+# This chart inherits from our common library chart. You can check the default values/options here:
+# https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+#
 
 image:
+  # -- image repository
   repository: ghcr.io/haraldkoch/prometheus-dnssec-exporter
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
+  # -- image tag - defaults to chart appVersion
   # tag: 0.3.1
+  # -- image pull policy
+  pullPolicy: IfNotPresent
 
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+env:
+  # -- Set the container timezone
+  TZ: UTC
 
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: false
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
-
-podAnnotations: {}
-
-podSecurityContext: {}
-  # fsGroup: 2000
-
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
+# -- Configures service settings for the chart.
+# @default -- See values.yaml
 service:
-  type: ClusterIP
-  port: 9204
+  main:
+    ports:
+      http:
+        enabled: false
+      metrics:
+        enabled: true
+        protocol: TCP
+        port: 9204
 
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
-
-# if the configuration is managed as secret outside the chart, using SealedSecret for example,
-# provide the name of the secret here. If secretConfig is set to true, configExistingSecretName will be ignored
-# in favor of the config value.
-configExistingSecretName: ""
-# Store the configuration as a `Secret` instead of a `ConfigMap`, useful in case it contains sensitive data
-secretConfig: false
-
-config:
-  records:
-    - zone: "ietf.org"
-      record: "@"
-      type: "SOA"
-#     - zone: "verisigninc.com"
-#       record: "@"
-#       type: "SOA"
+  # -- Enable and configure ingress settings for the chart under this key.
+  # @default -- See values.yaml
+  main:
+    enabled: false
 
 resolvers: []
-#  - 8.8.8.8:53
-#  - 1.1.1.1:53
+# - 8.8.8.8:53
+# - 1.1.1.1:53
 
-# configPath: "/foo/bar"
+configmap:
+  config:
+    enabled: true
+    data:
+      dnssec-checks: |
+        [[records]]
+          zone = "ietf.org"
+          record = "@"
+          type = "SOA"
 
-extraArgs: []
-#   - --timeout duration
+        [[records]]
+          zone = "verisigninc.com"
+          record = "@"
+          type = "SOA"
 
-## Prometheus Exporter / Metrics
-##
 metrics:
-  ## @param metrics.enabled Enable prometheus to access external-dns metrics endpoint
-  ##
+  # -- Enable and configure a prometheus serviceMonitor for the chart under this key.
+  # @default -- See values.yaml
   enabled: false
-  ## @param metrics.podAnnotations Annotations for enabling prometheus to access the metrics endpoint
-  ##
-  podAnnotations: {}
-  ## Prometheus Operator ServiceMonitor configuration
-  ##
   serviceMonitor:
-    ## @param metrics.serviceMonitor.enabled Create ServiceMonitor object
-    ##
-    enabled: false
-    ## @param metrics.serviceMonitor.namespace Namespace in which Prometheus is running
-    ##
-    namespace: ""
-    ## @param metrics.serviceMonitor.interval Interval at which metrics should be scraped
-    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
-    ##
-    interval: ""
-    ## @param metrics.serviceMonitor.scrapeTimeout Timeout after which the scrape is ended
-    ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/api.md#endpoint
-    ##
-    scrapeTimeout: ""
-    ## @param metrics.serviceMonitor.selector Additional labels for ServiceMonitor object
-    ## ref: https://github.com/bitnami/charts/tree/master/bitnami/prometheus-operator#prometheus-configuration
-    ## e.g:
-    ## selector:
-    ##   prometheus: my-prometheus
-    ##
-    selector: {}
+    interval: 1m
+    scrapeTimeout: 30s
+    labels: {}
 
-prometheusRule:
-  enabled: false
-  additionalLabels: {}
-  namespace: ""
-  rules: []
-    ## These are just examples rules, please adapt them to your needs.
-    ## Make sure to constraint the rules to the current prometheus-dnssec-exporter service.
-    # - alert: DNSSECSignatureExpiration
-    #   expr: dnssec_zone_record_days_left{service="{{ template "prometheus-dnssec-exporter.fullname" . }}"} < 10
-    #   for: 1m
-    #   labels:
-    #     severity: warning
-    #   annotations:
-    #     description: |
-    #        The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }}
-    #        type {{ "{{ $labels.type }}" }} expires in {{ "{{ $value }}" }} day(s)
-    #     summary: |
-    #       The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }} is expiring
-    # - alert: DNSSECSignatureInvalid
-    #   expr: dnssec_zone_record_resolves{service="{{ template "prometheus-dnssec-exporter.fullname" . }}"} == 0
-    #   for: 1m
-    #   labels:
-    #     severity: critical
-    #   annotations:
-    #     description: |
-    #       The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }}
-    #       type {{ "{{ $labels.type }}" }} on resolver {{ "{{ $labels.resolver }}" }} is invalid
-    #     sumary: |
-    #       The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }}
-    #       on resolver {{ "{{ $labels.resolver }}" }} is invalid
+  # -- Enable and configure Prometheus Rules for the chart under this key.
+  # @default -- See values.yaml
+  prometheusRule:
+    enabled: false
+    labels: {}
+    rules: []
+      ## These are just examples rules, please adapt them to your needs.
+      ## Make sure to constraint the rules to the current prometheus-dnssec-exporter service.
+      # - alert: DNSSECSignatureExpiration
+      #   expr: dnssec_zone_record_days_left{service="{{ template "prometheus-dnssec-exporter.fullname" . }}"} < 10
+      #   for: 1m
+      #   labels:
+      #     severity: warning
+      #   annotations:
+      #     description: |
+      #        The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }}
+      #        type {{ "{{ $labels.type }}" }} expires in {{ "{{ $value }}" }} day(s)
+      #     summary: |
+      #       The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }} is expiring
+      # - alert: DNSSECSignatureInvalid
+      #   expr: dnssec_zone_record_resolves{service="{{ template "prometheus-dnssec-exporter.fullname" . }}"} == 0
+      #   for: 1m
+      #   labels:
+      #     severity: critical
+      #   annotations:
+      #     description: |
+      #       The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }}
+      #       type {{ "{{ $labels.type }}" }} on resolver {{ "{{ $labels.resolver }}" }} is invalid
+      #     sumary: |
+      #       The DNSSEC signature for the {{ "{{ $labels.record }}" }} in {{ "{{ $labels.zone }}" }}
+      #       on resolver {{ "{{ $labels.resolver }}" }} is invalid
