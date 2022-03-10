@@ -3,6 +3,31 @@ entries:
   http-echo:
   - apiVersion: v2
     appVersion: 0.2.3
+    created: "2022-03-10T23:28:13.305491653Z"
+    dependencies:
+    - name: common
+      repository: https://library-charts.k8s-at-home.com
+      version: 4.3.0
+    description: A Helm chart for the Hashicorp HTTP Echo application
+    digest: 20a3a3f67d02c4db7248bae6cb17a34d858778afac934564ee4a4e7328104f59
+    home: https://github.com/haraldkoch/helm-charts/tree/main/charts/echo
+    icon: https://secure.gravatar.com/avatar/f7304a610df968cef5badc9e9dcd40e0.jpg?s=80&r=g&d=mm
+    keywords:
+    - echo
+    - http-echo
+    maintainers:
+    - email: harald.koch@gmail.com
+      name: haraldkoch
+    name: http-echo
+    sources:
+    - https://hub.docker.com/r/hashicorp/http-echo/
+    - https://github.com/hashicorp/http-echo
+    type: application
+    urls:
+    - https://github.com/haraldkoch/helm-charts/releases/download/http-echo-0.3.2/http-echo-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: 0.2.3
     created: "2022-01-01T22:20:49.748287269Z"
     dependencies:
     - name: common
@@ -170,6 +195,33 @@ entries:
   openweathermap-exporter:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2022-03-10T23:28:13.414763808Z"
+    dependencies:
+    - name: common
+      repository: https://library-charts.k8s-at-home.com
+      version: 4.3.0
+    description: A Prometheus openweathermap exporter
+    digest: 154e9aebb4f9de03b27212371ee48dfcb8f7c33684ea300700ba301c91267280
+    home: https://github.com/haraldkoch/helm-charts/tree/main/charts/openweathermap-exporter
+    icon: https://avatars.githubusercontent.com/u/61287648?s=200&v=4
+    keywords:
+    - openweathermap-exporter
+    - openweathermap
+    - weather
+    maintainers:
+    - email: harald.koch@gmail.com
+      name: haraldkoch
+    name: openweathermap-exporter
+    sources:
+    - https://github.com/haraldkoch/openweathermap_exporter
+    - https://github.com/remmelt/openweathermap_exporter
+    - https://github.com/briandowns/openweathermap
+    type: application
+    urls:
+    - https://github.com/haraldkoch/helm-charts/releases/download/openweathermap-exporter-0.1.1/openweathermap-exporter-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2022-01-01T22:30:31.815113875Z"
     dependencies:
     - name: common
@@ -196,6 +248,29 @@ entries:
     - https://github.com/haraldkoch/helm-charts/releases/download/openweathermap-exporter-0.1.0/openweathermap-exporter-0.1.0.tgz
     version: 0.1.0
   prometheus-dnssec-exporter:
+  - apiVersion: v2
+    appVersion: 0.3.1
+    created: "2022-03-10T23:28:13.545077235Z"
+    dependencies:
+    - name: common
+      repository: https://library-charts.k8s-at-home.com
+      version: 4.3.0
+    description: The Prometheus DNSSEC exporter
+    digest: d857d5468001144387ddeeb0b91c39c2639fb89bab458053e463b3e3de21bde9
+    home: https://github.com/haraldkoch/helm-charts/tree/main/charts/proetheus-dnssec-exporter
+    icon: https://avatars.githubusercontent.com/u/61287648?s=200&v=4
+    maintainers:
+    - email: harald.koch@gmail.com
+      name: haraldkoch
+    name: prometheus-dnssec-exporter
+    sources:
+    - https://hub.docker.com/r/haraldkoch/prometheus-dnssec-exporter/
+    - https://github.com/haraldkoch/prometheus-dnssec-exporter
+    - https://github.com/chrj/prometheus-dnssec-exporter
+    type: application
+    urls:
+    - https://github.com/haraldkoch/helm-charts/releases/download/prometheus-dnssec-exporter-0.6.1/prometheus-dnssec-exporter-0.6.1.tgz
+    version: 0.6.1
   - apiVersion: v2
     appVersion: 0.3.1
     created: "2022-02-19T19:30:00.294255911Z"
@@ -520,6 +595,32 @@ entries:
   weather-exporter:
   - apiVersion: v2
     appVersion: 0.1.1
+    created: "2022-03-10T23:28:13.656132387Z"
+    dependencies:
+    - name: common
+      repository: https://library-charts.k8s-at-home.com
+      version: 4.3.0
+    description: A Prometheus weather exporter
+    digest: f306a0d5205308d1849d97623c471a3730ca0d9976b76fe5b1762f5589b1bed4
+    home: https://github.com/haraldkoch/helm-charts/tree/main/charts/weather-exporter
+    icon: https://avatars.githubusercontent.com/u/61287648?s=200&v=4
+    keywords:
+    - weather-exporter
+    - darksky
+    - weather
+    maintainers:
+    - email: harald.koch@gmail.com
+      name: haraldkoch
+    name: weather-exporter
+    sources:
+    - https://github.com/haraldkoch/weather_exporter
+    - https://github.com/celliott/weather_exporter
+    type: application
+    urls:
+    - https://github.com/haraldkoch/helm-charts/releases/download/weather-exporter-0.1.3/weather-exporter-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 0.1.1
     created: "2022-01-01T22:20:50.120791881Z"
     dependencies:
     - name: common
@@ -570,4 +671,4 @@ entries:
     urls:
     - https://github.com/haraldkoch/helm-charts/releases/download/weather-exporter-0.1.1/weather-exporter-0.1.1.tgz
     version: 0.1.1
-generated: "2022-02-19T19:30:00.294785918Z"
+generated: "2022-03-10T23:28:13.656419087Z"
