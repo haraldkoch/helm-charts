@@ -2,6 +2,10 @@
 
 [![Release Charts](https://github.com/haraldkoch/helm-charts/actions/workflows/chart-release.yml/badge.svg)](https://github.com/haraldkoch/helm-charts/actions/workflows/chart-release.yml)
 
+# DEPRECATED
+
+A recent attempt to update these charts to the latest version of kah-common somehow failed, and since I can now use the k8s-at-home/kah-common-chart directly, I'm not using these charts or this repository any more.
+
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.
